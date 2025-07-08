@@ -1,0 +1,13 @@
+<div class="header-container">
+  <div class="header-logo-container">
+    <a [routerLink]="['/']">
+      <img src="assets/images/logo.svg" alt="Logotipo aplicación" />
+    </a>
+  </div>
+
+  <div class="header-lang-container">
+    <mat-select class="lang-selector" [(value)]="langCookie" (selectionChange)="cambiarIdioma($event.value)">
+      <mat-option *ngFor="let lang of langs" [value]="lang">{{ lang }}</mat-option>
+    </mat-select>
+  </div>
+</div>
