@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import Swal from 'sweetalert2';
-import { TranslateService, TranslateModule} from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { FirmaElectronicaService } from '../../services/FirmaElectronicaService';
+import { VerificacionFirmaService } from '../../services/VerificacionFirmaService';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Observable, ReplaySubject } from 'rxjs';
 import { PopUpManager } from '../../managers/popUpManager';
@@ -45,6 +46,7 @@ export class VerificarComponent implements OnInit {
   constructor(
     public translate: TranslateService,
     private firmaElectronicaService: FirmaElectronicaService,
+    private verificacionFirmaService: VerificacionFirmaService,
     private sanitization: DomSanitizer,
     private popUpMan: PopUpManager,
   ) { }
@@ -103,13 +105,9 @@ export class VerificarComponent implements OnInit {
     if (this.base64Output == null) {
       this.base64Output = '';
     }
-    /*Swal({
-      title: 'Por favor espera, cargando documento',
-      allowOutsideClick: false,
-      onBeforeOpen: () => {
-        Swal.showLoading();
-      },
-    });*/
+    if (this.pdfURL == null) {
+      this.pdfURL = '';
+    }
     Swal.fire({
       title: 'Por favor espera, cargando documento',
       allowOutsideClick: false,
@@ -117,13 +115,8 @@ export class VerificarComponent implements OnInit {
         Swal.showLoading();
       },
     });
-    if (this.base64Output == null) {
-      this.base64Output = '';
-    }
-    if (this.pdfURL == null) {
-      this.pdfURL = '';
-    }
-    this.firmaElectronicaService.getOne(this.firmaId, this.base64Output, this.pdfURL)
+    
+    /*this.firmaElectronicaService.getOne(this.firmaId, this.base64Output, this.pdfURL)
       .subscribe(async (data: any) => {
         const url = await this.firmaElectronicaService.getUrlFile(data.res[0].file, data.res[0]['file:content']['mime-type']);
         this.fileEqual = await data.res[0].fileEqual;
@@ -141,8 +134,24 @@ export class VerificarComponent implements OnInit {
         this.captchaRef.reset();
         this.captchaToken = '';
         this.captchaPassed = false;
-      });
+      });*/
+      const payload = [
+        {
+          pdf_base64: this.base64Output,        // base64 del PDF firmado (cadena larga)
+          firma: this.firmaId,                  // UUID de la firma
+          urlFileUp: this.pdfURL        // URL del archivo en el servidor
+        }
+      ];
+console.log('Payload enviado:', payload);
+        this.verificacionFirmaService.post('verificar_firma', payload)
+          .subscribe((res) => {
+            console.log('Verificación enviada:', res);
+            Swal.close();
+          });
+
   }
+
+
 
   onCaptchaResolved(token: string | null): void {
     if (token) {
@@ -155,7 +164,7 @@ export class VerificarComponent implements OnInit {
       this.captchaPassed = false;
     }
   }
-  
-  
+
+
 
 }
