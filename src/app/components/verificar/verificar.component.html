@@ -29,7 +29,8 @@
         <div class="form-row">
             <label class="form-label">{{ 'GLOBAL.archivoLabel' | translate }}</label>
             <div class="form-input archivo-input">
-                <input id="inputDoc" type="file" accept="application/pdf" class="file-input"
+                <!--<input id="inputDoc" type="file" accept="application/pdf" class="file-input"--> 
+                <input id="inputDoc" type="file" accept="application/pdf,image/jpeg" class="file-input" 
                     (change)="onFileSelected($event)" #fileUpload />
                 <button mat-stroked-button color="primary" type="button" (click)="fileUpload.click()">
                     <mat-icon>attach_file</mat-icon>
@@ -44,7 +45,7 @@
         </re-captcha>
 
         <div class="acciones">
-            <button mat-raised-button color="primary" (click)="checkFirma()" [disabled]="!firmaId || !fileName">
+            <button mat-raised-button color="primary" (click)="checkFirma()" [disabled]="!firmaId || !fileName || !captchaPassed">
                 <mat-icon>check_circle</mat-icon>
                 {{ 'GLOBAL.verificarFirma' | translate }}
             </button>

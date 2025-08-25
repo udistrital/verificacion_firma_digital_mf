@@ -39,6 +39,16 @@ export class RequestManager {
     }
   }
 
+  private getHttpOptions() {
+    const acces_token = window.localStorage.getItem('access_token');
+    return {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${acces_token}`,
+      }),
+    };
+  }
+  
+
 
   /**
    * Use for set the source path of the service (service's name must be present at src/environment/environment.ts)
@@ -56,37 +66,8 @@ export class RequestManager {
    * @returns Observable<any>
    */
   get(endpoint: string) {
-    return this.http.get<any>(`${this.path}${endpoint}`, this.httpOptions).pipe(
-      map(
-        (res) => {
-          if (res instanceof HttpResponse) {
-            return res.body;
-          } else {
-            return res;
-          }
-        },
-      ),
-      catchError(this.errManager.handleError.bind(this)),
-    );
-  }
-
-  getp(endpoint: string) {
-    return this.http.get<any>(`${this.path}${endpoint}`, {...this.httpOptions, reportProgress: true, observe: 'events' }).pipe(
-      catchError(this.errManager.handleError.bind(this)),
-    );
-  }
-
-  getOnlyAuth(endpoint: string) {
-    return this.http.get<any>(`${this.path}${endpoint}`, this.httpOptionsOnlyAuth).pipe(
-      map(
-        (res) => {
-          if (res instanceof HttpResponse) {
-            return res.body;
-          } else {
-            return res;
-          }
-        },
-      ),
+    return this.http.get<any>(`${this.path}${endpoint}`, this.getHttpOptions()).pipe(
+      map(res => res instanceof HttpResponse ? res.body : res),
       catchError(this.errManager.handleError.bind(this)),
     );
   }
@@ -98,84 +79,10 @@ export class RequestManager {
    * @returns Observable<any>
    */
   post(endpoint: string, element: any) {
-    return this.http.post<any>(`${this.path}${endpoint}`, element, this.httpOptions).pipe(
-        map(
-            (res) => {
-                if (res instanceof HttpResponse) {
-                    return res.body;
-                } else {
-                    return res;
-                }
-            },
-        ),
-        catchError(this.errManager.handleError),
-    );
-}
-
-
-  /**
-   * Perform a POST http request
-   * @param endpoint service's end-point
-   * @param element data to send as JSON
-   * @returns Observable<any>
-   */
-  post_file(endpoint: string, element: any) {
-    return this.http.post<any>(`${this.path}${endpoint}`, element, {
-      headers: new HttpHeaders({
-        'Content-Type': 'multipart/form-data',
-      })
-    }).pipe(
-      map(
-        (res) => {
-          if (res instanceof HttpResponse) {
-            return res.body;
-          } else {
-            return res;
-          }
-        },
-      ),
+    return this.http.post<any>(`${this.path}${endpoint}`, element, this.getHttpOptions()).pipe(
+      map(res => res instanceof HttpResponse ? res.body : res),
       catchError(this.errManager.handleError),
     );
   }
 
-  /**
-   * Perform a PUT http request
-   * @param endpoint service's end-point
-   * @param element data to send as JSON, With the id to UPDATE
-   * @returns Observable<any>
-   */
-  put(endpoint: string, element: any): Observable<any> {
-    const path = `${this.path}${endpoint}`;
-    return this.http.put<any>(path, element, this.httpOptions).pipe(
-      map((res) => {
-        if (res instanceof HttpResponse) {
-          return res.body;
-        } else {
-          return res;
-        }
-      }),
-      catchError(this.errManager.handleError.bind(this)),
-    );
-  }
-
-  /**
-   * Perform a DELETE http request
-   * @param endpoint service's end-point
-   * @param id element's id for remove
-   * @returns Observable<any>
-   */
-  delete(endpoint: string, id: number | string) {
-    return this.http.delete<any>(`${this.path}${endpoint}/${id}`, this.httpOptions).pipe(
-      map(
-        (res) => {
-          if (res instanceof HttpResponse) {
-            return res.body;
-          } else {
-            return res;
-          }
-        },
-      ),
-      catchError(this.errManager.handleError),
-    );
-  }
 };
