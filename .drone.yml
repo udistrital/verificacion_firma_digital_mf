@@ -1,5 +1,5 @@
 kind: pipeline
-name: oas_cliente_ci
+name: oati_cliente_ci
 
 steps:
 - name: nodejs_release
