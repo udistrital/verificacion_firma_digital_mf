@@ -6,7 +6,6 @@ export const environment = {
     VERIFICACION_FIRMA_SERVICE: 'http://localhost:8567/v1/',
     SECRET_KEY_: 'JuMusTq5jWh8yIdTeqQxN7uYt6Ia',
     TOKEN: {
-        //CLIENTE_ID: '8F0cB3XNG1bY9Quz_utqRDE9yh4a',
         CLIENTE_ID: 'q5NoHpeM38Scq3KbD4aqT6XXnLQa',
         RESPONSE_TYPE: 'id_token token',
         REDIRECT_URL: 'http://localhost:4200/',

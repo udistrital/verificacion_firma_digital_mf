@@ -1,6 +1,7 @@
 export const environment = {
     production: true,
     apiUrl: "https://verificacion_externa.portaloas.udistrital.edu.co/",
+    AUTENTICACION_MID: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/autenticacion_mid/v1/',
     FIRMA_ELECTRONICA_SERVICE: 'https://autenticacion.portaloas.udistrital.edu.co/apioas/firma_electronica_mid/v1/',
     VERIFICACION_FIRMA_SERVICE: 'http://localhost:8567/v1/',
     SECRET_KEY_: 'JuMusTq5jWh8yIdTeqQxN7uYt6Ia',
