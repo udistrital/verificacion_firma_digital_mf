@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { RequestManager } from '../managers/requestManager';
-import { PopUpManager } from '../managers/popUpManager';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +8,6 @@ export class FirmaElectronicaService {
 
   constructor(
     private rqManager: RequestManager,
-    private pUpManager: PopUpManager,
   ) { }
 
   getUrlFile(base64: any, minetype: any) {

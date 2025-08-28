@@ -8,8 +8,6 @@ if (environment.production) {
   enableProdMode();
 }
 
-console.log('API base URL:', environment.apiUrl);
-
 // Lógica para obtener el token antes de iniciar la app
 fetch(environment.AUTENTICACION_MID + 'token/clientAuth', {
   method: 'POST',
@@ -18,13 +16,11 @@ fetch(environment.AUTENTICACION_MID + 'token/clientAuth', {
   },
   body: JSON.stringify({
     clienteId: btoa(environment.TOKEN.CLIENTE_ID),
-    documento: '8F0cB3XNG1bY9Quz_utqRDE9yh4a'
+    documento: environment.TOKEN.CLIENTE_ID
   })
 })
   .then(res => res.json())
   .then(data => {
-    console.log('Token recibido:', data);
-    // Si quieres guardar el token globalmente:
     localStorage.setItem('access_token', data.access_token);
     bootstrapApplication(AppComponent, appConfig)
       .catch((err) => console.error(err));

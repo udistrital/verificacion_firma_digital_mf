@@ -1,40 +1,29 @@
 <mat-card class="aviso-card">
-    <h1 class="titulo">AVISO LEGAL</h1>
-    <p class="text">
-        En cumplimiento de la legislación colombiana, esta interfaz le permite verificar la autenticidad y validez de documentos firmados electrónicamente, de acuerdo con las siguientes leyes, resoluciones y decretos:
-        Ley 527 de 1999: Por la cual se define y reglamenta el acceso y uso de los mensajes de datos, del comercio electrónico y de las firmas digitales, y se establecen las entidades de certificación y se dictan otras disposiciones.
-        Decreto 1747 de 2000: Por el cual se reglamenta parcialmente la Ley 527 de 1999 en relación con la firma electrónica avanzada y se dictan otras disposiciones.
-        Resolución 2634 de 2013: Por la cual se establecen los requisitos técnicos para la implementación de la firma electrónica avanzada y se dictan otras disposiciones.
-
-        La firma electrónica es un mecanismo seguro y legalmente reconocido para garantizar la integridad y la identidad del firmante. Es importante tener en cuenta que la verificación electrónica es una herramienta complementaria y no reemplaza una revisión legal o el asesoramiento de un profesional. Al utilizar esta interfaz, usted acepta que la responsabilidad por el uso y la interpretación de los resultados de verificación recae exclusivamente en usted. El proveedor de esta interfaz no asume responsabilidad alguna por cualquier consecuencia derivada del uso de esta.
-
-        Gracias por utilizar nuestra plataforma de verificación de documentos con firma electrónica. Si tiene alguna pregunta o necesita asistencia, no dude en ponerse en contacto con nuestro equipo de soporte.
-    </p>
+    <h1 class="titulo">{{ 'BODY.titulo_uno' | translate }}</h1>
+    <p class="text">{{ 'BODY.parrafo_uno' | translate }}</p>
 </mat-card>
 
 <mat-card *ngIf="!doc" class="verificar-card">
-    <p class="subtitulo">🔏 Por favor, ingrese el código de verificación y cargue el documento PDF que desea verificar.
-    </p>
+    <p class="subtitulo">{{ 'BODY.subtitulo_uno' | translate }}</p>
 
     <form class="formulario" autocomplete="off">
 
         <div class="form-row">
-            <label class="form-label" for="codigoFirma">{{ 'GLOBAL.codigoVerificacion' | translate }}</label>
+            <label class="form-label" for="codigoFirma">{{ 'BODY.codigo_verificacion' | translate }}</label>
             <mat-form-field appearance="fill" class="form-input">
-                <input id="codigoFirma" matInput [(ngModel)]="firmaId" name="firmaId" placeholder="Ej. ABC123XYZ"
+                <input id="codigoFirma" matInput [(ngModel)]="firmaId" name="firmaId" [placeholder]="'BODY.codigo_verificacion_placeholder' | translate"
                     required />
             </mat-form-field>
         </div>
 
         <div class="form-row">
-            <label class="form-label">{{ 'GLOBAL.archivoLabel' | translate }}</label>
+            <label class="form-label">{{ 'BODY.documento_pdf' | translate }}</label>
             <div class="form-input archivo-input">
-                <!--<input id="inputDoc" type="file" accept="application/pdf" class="file-input"--> 
                 <input id="inputDoc" type="file" accept="application/pdf,image/jpeg" class="file-input" 
                     (change)="onFileSelected($event)" #fileUpload />
                 <button mat-stroked-button color="primary" type="button" (click)="fileUpload.click()">
                     <mat-icon>attach_file</mat-icon>
-                    {{ fileName || 'Seleccionar archivo PDF' }}
+                    {{ fileName || ('BODY.documento_pdf_placeholder' | translate) }}
                 </button>
             </div>
         </div>
@@ -47,7 +36,7 @@
         <div class="acciones">
             <button mat-raised-button color="primary" (click)="checkFirma()" [disabled]="!firmaId || !fileName || !captchaPassed">
                 <mat-icon>check_circle</mat-icon>
-                {{ 'GLOBAL.verificarFirma' | translate }}
+                {{ 'BODY.boton' | translate }}
             </button>
         </div>
 

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'footer',
@@ -14,7 +15,7 @@ export class FooterComponent {
   final: any;
   copyright: any;
   social: any;
-  basePathAssets = 'https://pruebasassets.portaloas.udistrital.edu.co/';
+  basePathAssets = environment.PRUEBAS_ASSETS;
 
   constructor() {
     this.social = {

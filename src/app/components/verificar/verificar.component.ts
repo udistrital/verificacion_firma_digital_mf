@@ -2,9 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 import Swal from 'sweetalert2';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { FirmaElectronicaService } from '../../services/FirmaElectronicaService';
 import { VerificacionFirmaService } from '../../services/VerificacionFirmaService';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Observable, ReplaySubject } from 'rxjs';
 import { PopUpManager } from '../../managers/popUpManager';
 
@@ -17,9 +15,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
 import { RecaptchaModule, RecaptchaComponent } from 'ng-recaptcha';
-
-
-declare const grecaptcha: any;
 
 @Component({
   selector: 'app-verificar',
@@ -46,9 +41,7 @@ export class VerificarComponent implements OnInit {
 
   constructor(
     public translate: TranslateService,
-    private firmaElectronicaService: FirmaElectronicaService,
     private verificacionFirmaService: VerificacionFirmaService,
-    private sanitization: DomSanitizer,
     private popUpMan: PopUpManager,
   ) { }
 
@@ -65,15 +58,9 @@ export class VerificarComponent implements OnInit {
 
     const allowedTypes = ['application/pdf', 'image/jpeg'];
 
-    /*if (file.type !== 'application/pdf' || !file.name.toLowerCase().endsWith('.pdf')) {
-      this.popUpMan.showErrorAlert('Solo se permiten archivos PDF, por favor ingresa un archivo válido.');
-      this.base64Output = '';
-      this.fileName = '';
-      return;
-    }*/
-
     if (!allowedTypes.includes(file.type)) {
-      this.popUpMan.showErrorAlert('Solo se permiten archivos PDF o JPG, por favor ingresa un archivo válido.');
+      let mensaje = this.translate.instant('POPUP.archivo_invalido');
+      this.popUpMan.showErrorAlert(mensaje);
       this.base64Output = '';
       this.fileName = '';
       return;
@@ -83,7 +70,6 @@ export class VerificarComponent implements OnInit {
     this.fileType = file.type;
     this.convertFile(file).subscribe(base64 => {
       this.base64Output = base64;
-      //this.loadPdf();
       this.loadFileBlob()
     });
   }
@@ -95,23 +81,6 @@ export class VerificarComponent implements OnInit {
     reader.onload = (event) => result.next(btoa(reader.result!.toString()));
     return result;
   }
-
-  /*loadPdf(): void {
-    if (this.base64Output) {
-      // Mostrar en iframe base 64
-      const binary = atob(this.base64Output.replace(/\s/g, ''));
-      const len = binary.length;
-      const buffer = new ArrayBuffer(len);
-      const view = new Uint8Array(buffer);
-
-      for (let i = 0; i < len; i++) {
-        view[i] = binary.charCodeAt(i);
-      }
-      const blob = new Blob([view], { type: 'application/pdf' });
-      const url = window.URL.createObjectURL(blob);
-      this.pdfURL = url;
-    }
-  }*/
 
   loadFileBlob(): void {
     if (!this.base64Output || !this.fileType) {
@@ -129,26 +98,29 @@ export class VerificarComponent implements OnInit {
 
     const blob = new Blob([view], { type: this.fileType });
     const url = window.URL.createObjectURL(blob);
-    this.pdfURL = url; // esta url puede ser para PDF o imagen
+    this.pdfURL = url; 
   }
 
 
   public checkFirma() {
     if (!this.captchaToken) {
-      this.popUpMan.showErrorAlert('Por favor completa el reCAPTCHA.');
+      let mensaje = this.translate.instant('POPUP.falta_captcha');
+      this.popUpMan.showErrorAlert(mensaje);
       return;
     }
 
     if (!this.firmaId || this.firmaId.length !== 36) {
-      this.popUpMan.showErrorAlert('Revisa el código de verificación, por favor ingresa un código válido.');
+      let mensaje = this.translate.instant('POPUP.falta_codigo_verificacion');
+      this.popUpMan.showErrorAlert(mensaje);
       return;
     }
 
     if (this.base64Output == null) this.base64Output = '';
     if (this.pdfURL == null) this.pdfURL = '';
 
+    let titulo = this.translate.instant('POPUP.mensaje_espera');
     Swal.fire({
-      title: 'Por favor espera, mientras valido el código de verificación y el archivo',
+      title: titulo,
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
@@ -172,7 +144,8 @@ export class VerificarComponent implements OnInit {
         this.captchaPassed = false;
 
         if (!res.Success) {
-          this.popUpMan.showErrorAlert('Se genero un error en la verificación, debido al archivo o código de verificación.');
+          let mensaje = this.translate.instant('POPUP.error_verificacion');
+          this.popUpMan.showErrorAlert(mensaje);
           return;
         }
 
@@ -181,17 +154,21 @@ export class VerificarComponent implements OnInit {
         const fileEqual = verificacion?.fileEqual ?? false;
         const archivoInfectado = virus?.archive === 'infected';
 
+        let tituloAtencion = this.translate.instant('POPUP.titulo_atencion');
         if (archivoInfectado) {
-          this.popUpMan.showAlert('Atención', 'Se detecto que el archivo puede contener virus. No se puede validar la firma.');
+          let mensaje = this.translate.instant('POPUP.puede_contener_virus');
+          this.popUpMan.showAlert(tituloAtencion, mensaje);
           return;
         }
 
         if (!fileEqual) {
-          this.popUpMan.showAlert('Atención', 'Se archivo adjunto no coincide o fue modificado al original.');
+          let mensaje = this.translate.instant('POPUP.archivo_no_coincide');
+          this.popUpMan.showAlert(tituloAtencion, mensaje);
           return;
         }
 
-        this.popUpMan.showSuccessAlert('Se verificó correctamente que es valida la firma digital y el archivo no tiene modificaciones.');
+        let mensaje = this.translate.instant('POPUP.verificacion_exitosa');
+        this.popUpMan.showSuccessAlert(mensaje);
       },
 
       error: (err) => {
@@ -199,7 +176,8 @@ export class VerificarComponent implements OnInit {
         this.captchaRef.reset();
         this.captchaToken = '';
         this.captchaPassed = false;
-        this.popUpMan.showErrorAlert('Se genero un error en la verificación, debido al archivo o código de verificación, por favor revísalos.');
+        let mensaje = this.translate.instant('POPUP.error_inesperado');
+        this.popUpMan.showErrorAlert(mensaje);
       },
     });
   }
