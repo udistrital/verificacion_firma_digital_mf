@@ -1,0 +1,36 @@
+.header-container {
+  position: relative;
+  width: 100%;
+  height: 92px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0.5rem 1rem rgba(44, 51, 73, 0.1);
+  z-index: 100;
+}
+
+.header-logo-container {
+  img {
+    height: 80px;
+    width: auto;
+  }
+}
+
+.header-lang-container {
+  position: absolute;
+  top: 50%;
+  left: 70%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+}
+
+.lang-selector {
+  width: 140px;
+}
+
+::ng-deep .mat-select-trigger {
+  display: flex;
+  align-items: center;
+}

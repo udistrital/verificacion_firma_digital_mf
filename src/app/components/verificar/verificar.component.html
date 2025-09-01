@@ -1,0 +1,45 @@
+<mat-card class="aviso-card">
+    <h1 class="titulo">{{ 'BODY.titulo_uno' | translate }}</h1>
+    <p class="text">{{ 'BODY.parrafo_uno' | translate }}</p>
+</mat-card>
+
+<mat-card *ngIf="!doc" class="verificar-card">
+    <p class="subtitulo">{{ 'BODY.subtitulo_uno' | translate }}</p>
+
+    <form class="formulario" autocomplete="off">
+
+        <div class="form-row">
+            <label class="form-label" for="codigoFirma">{{ 'BODY.codigo_verificacion' | translate }}</label>
+            <mat-form-field appearance="fill" class="form-input">
+                <input id="codigoFirma" matInput [(ngModel)]="firmaId" name="firmaId" [placeholder]="'BODY.codigo_verificacion_placeholder' | translate"
+                    required />
+            </mat-form-field>
+        </div>
+
+        <div class="form-row">
+            <label class="form-label">{{ 'BODY.documento_pdf' | translate }}</label>
+            <div class="form-input archivo-input">
+                <input id="inputDoc" type="file" accept="application/pdf,image/jpeg" class="file-input" 
+                    (change)="onFileSelected($event)" #fileUpload />
+                <button mat-stroked-button color="primary" type="button" (click)="fileUpload.click()">
+                    <mat-icon>attach_file</mat-icon>
+                    {{ fileName || ('BODY.documento_pdf_placeholder' | translate) }}
+                </button>
+            </div>
+        </div>
+
+        <re-captcha #captchaRef 
+            [siteKey]="captchaKey"
+            (resolved)="onCaptchaResolved($event)">
+        </re-captcha>
+
+        <div class="acciones">
+            <button mat-raised-button color="primary" (click)="checkFirma()" [disabled]="!firmaId || !fileName || !captchaPassed">
+                <mat-icon>check_circle</mat-icon>
+                {{ 'BODY.boton' | translate }}
+            </button>
+        </div>
+
+    </form>
+</mat-card>
+

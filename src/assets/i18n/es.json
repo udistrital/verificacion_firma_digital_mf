@@ -1,0 +1,42 @@
+{
+  "HEADER": {
+    "TITLE": "VERIFICACIÓN DE FIRMA DIGITAL",
+    "IDIOMA": {
+      "ESPANOL": "es",
+      "INGLES": "en"
+    }
+  },
+  "BODY": {
+    "titulo_uno": "AVISO LEGAL",
+    "parrafo_uno": "En cumplimiento de la legislación colombiana, esta interfaz le permite verificar la autenticidad y validez de documentos firmados electrónicamente, de acuerdo con las siguientes leyes, resoluciones y decretos: Ley 527 de 1999: Por la cual se define y reglamenta el acceso y uso de los mensajes de datos, del comercio electrónico y de las firmas digitales, y se establecen las entidades de certificación y se dictan otras disposiciones. Decreto 1747 de 2000: Por el cual se reglamenta parcialmente la Ley 527 de 1999 en relación con la firma electrónica avanzada y se dictan otras disposiciones. Resolución 2634 de 2013: Por la cual se establecen los requisitos técnicos para la implementación de la firma electrónica avanzada y se dictan otras disposiciones. La firma electrónica es un mecanismo seguro y legalmente reconocido para garantizar la integridad y la identidad del firmante. Es importante tener en cuenta que la verificación electrónica es una herramienta complementaria y no reemplaza una revisión legal o el asesoramiento de un profesional. Al utilizar esta interfaz, usted acepta que la responsabilidad por el uso y la interpretación de los resultados de verificación recae exclusivamente en usted. El proveedor de esta interfaz no asume responsabilidad alguna por cualquier consecuencia derivada del uso de esta. Gracias por utilizar nuestra plataforma de verificación de documentos con firma electrónica. Si tiene alguna pregunta o necesita asistencia, no dude en ponerse en contacto con nuestro equipo de soporte.",
+    "subtitulo_uno": "🔏 Por favor, ingrese el código de verificación y cargue el documento PDF que desea verificar.",
+    "codigo_verificacion": "Código de verificación: ",
+    "codigo_verificacion_placeholder": "Ej. ABC123XYZ",
+    "documento_pdf": "Documento PDF: ",
+    "documento_pdf_placeholder": "Seleccionar archivo PDF",
+    "boton": "VERIFICAR FIRMA"
+
+  },
+  "GLOBAL": {
+    "cerrar": "Cerrar",
+    "aceptar": "Aceptar",
+    "operacion_exitosa": "Operación Exitosa",
+    "error": "Error",
+    "cancelar": "Cancelar",
+    "firmaInvalida": "Debe ingresar una firma válida",
+    "firmaVerificada": "Se ha verificado correctamente la firma con el documento",
+    "docsComp": "Los documentos no coinciden"
+  },
+  "POPUP": {
+    "archivo_invalido": "Solo se permiten archivos PDF o JPG, por favor ingresa un archivo válido.",
+    "falta_captcha": "Por favor completa el reCAPTCHA.",
+    "falta_codigo_verificacion": "Revisa el código de verificación, por favor ingresa un código válido.",
+    "mensaje_espera": "Por favor espera, mientras valido el código de verificación y el archivo.",
+    "error_verificacion": "Se genero un error en la verificación, debido al archivo o código de verificación.",
+    "titulo_atencion": "Atención",
+    "puede_contener_virus": "Se detecto que el archivo puede contener virus. No se puede validar la firma.",
+    "archivo_no_coincide": "El archivo adjunto no coincide o fue modificado al original.",
+    "verificacion_exitosa": "Se verificó correctamente que es valida la firma digital y el archivo no tiene modificaciones.",
+    "error_inesperado": "Se genero un error en la verificación, debido al archivo o código de verificación, por favor revísalos."
+  }
+}
