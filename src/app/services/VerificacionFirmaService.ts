@@ -28,17 +28,6 @@ export class VerificacionFirmaService {
         });
     }
 
-    /*getUrlFile(file: any, mimeType: string): string {
-        const byteCharacters = atob(file);
-        const byteArrays = [];
-        for (let i = 0; i < byteCharacters.length; i++) {
-          byteArrays.push(byteCharacters.charCodeAt(i));
-        }
-        const blob = new Blob([new Uint8Array(byteArrays)], { type: mimeType });
-        return URL.createObjectURL(blob);
-    }*/
-      
-
     post(endpoint: string, element: any) {
         this.requestManager.setPath('VERIFICACION_FIRMA_SERVICE');
         return this.requestManager.post(endpoint, element);

@@ -1,9 +1,12 @@
 kind: pipeline
-name: oas_cliente_ci
+name: oati_cliente_ci
 
 steps:
 - name: nodejs_release
   image: node:18
+  environment:
+    CAPTCHA_SITE_KEY:
+      from_secret: CAPTCHA_SITE_KEY
   commands:
     - node --version
     - npm i
@@ -16,6 +19,9 @@ steps:
 
 - name: nodejs_master
   image: node:18
+  environment:
+    CAPTCHA_SITE_KEY:
+      from_secret: CAPTCHA_SITE_KEY
   commands:
     - node --version
     - npm i

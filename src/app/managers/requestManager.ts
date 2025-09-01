@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { catchError, map } from 'rxjs/operators';
-import { Observable } from 'rxjs'; 
 import { HttpErrorManager } from './errorManager';
 
 /**
@@ -27,7 +26,6 @@ export class RequestManager {
     if (acces_token !== null) {
       this.httpOptions = {
         headers: new HttpHeaders({
-          // 'Content-Type': 'application/json',
           'Authorization': `Bearer ${acces_token}`,
         }),
       };

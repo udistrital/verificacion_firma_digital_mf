@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'header',
@@ -18,7 +19,7 @@ export class HeaderComponent{
   @Input() notificaciones: boolean = false;
 
 
-  basePathAssets = 'https://pruebasassets.portaloas.udistrital.edu.co/';
+  basePathAssets = environment.PRUEBAS_ASSETS;
 
   langs: string[] = ['es', 'en']; 
   langCookie: string = 'en';

@@ -31,19 +31,5 @@ export const appConfig: ApplicationConfig = {
     )
   ]
 };
-/*export const appConfig: ApplicationConfig = {
-  providers: [
-    provideRouter(routes),
-    { provide: APP_BASE_HREF, useValue: '/' },
-    provideHttpClient(),
-    TranslateModule.forRoot({
-      defaultLanguage: 'es',
-      loader: {
-        provide: TranslateLoader,
-        useFactory: createTranslateLoader,
-        deps: [HttpClient]
-      }
-    }).providers!
-  ]
-};*/
+
 
