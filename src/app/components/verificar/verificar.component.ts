@@ -13,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { environment } from '../../../environments/environment';
 
 import { RecaptchaModule, RecaptchaComponent } from 'ng-recaptcha';
 
@@ -36,6 +37,7 @@ export class VerificarComponent implements OnInit {
   blob?: Blob;
   fileEqual: any;
 
+  captchaKey = environment.CAPTCHA_SITE_KEY;
   captchaToken: string = '';
   captchaPassed: boolean = false;
 
