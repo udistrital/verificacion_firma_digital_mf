@@ -33,12 +33,20 @@
             (resolved)="onCaptchaResolved($event)">
         </re-captcha>
 
-        <div class="acciones">
-            <button mat-raised-button color="primary" (click)="checkFirma()" [disabled]="!firmaId || !fileName || !captchaPassed">
-                <mat-icon>check_circle</mat-icon>
-                {{ 'BODY.boton' | translate }}
-            </button>
+        <div class="form-row recordatorio-row">
+  <div class="recordatorio">
+            <p class="form-recordatorio">Recordatorio: Recuerde que la validación del archivo solo es posible si se descargó usando el ícono de descarga, evitando la opción de imprimir.</p>
+            <mat-icon>download_for_offline</mat-icon>
+            </div>
+            <div class="acciones">
+                <button mat-raised-button color="primary" (click)="checkFirma()" [disabled]="!firmaId || !fileName || !captchaPassed">
+                    <mat-icon>check_circle</mat-icon>
+                    {{ 'BODY.boton' | translate }}
+                </button>
+            </div>
         </div>
+
+        
 
     </form>
 </mat-card>
