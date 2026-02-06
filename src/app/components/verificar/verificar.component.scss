@@ -1,186 +1,174 @@
-/*
+.verificar-card {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem 2.5rem;
+  border-radius: 16px;
+  background: #fdfdfd;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 
-.container {
+  .titulo {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitulo {
+    text-align: center;
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 2rem;
+  }
+
+  .formulario {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
+    gap: 1.5rem;
 
-.file {
-    height: 100%;
-}
-
-.input-firma {
-    min-width: 300px;
-}
-
-h2, h5 {
-    color: black;
-}
-
-h5 {
-    text-align: justify;
-    text-justify: inter-word;
-}
-
-.contDoc {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 50% 50%;
-    height: 100%;
-}
-
-.contDoc h5 {
-    color:#aeaeae;
-    font-weight: bolder;
-    text-align: center !important;
-}
-
-.file-input {
-    display: none;
-}
-
-.tituloFalse h5 {
-    color: red;
-}
-
-*/
-
-
-
-.verificar-card {
-    max-width: 900px;
-    margin: 2rem auto;
-    padding: 2rem 2.5rem;
-    border-radius: 16px;
-    background: #fdfdfd;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  
-    .titulo {
-      text-align: center;
-      font-size: 1.8rem;
-      color: #2c3e50;
-      margin-bottom: 0.5rem;
-    }
-  
-    .subtitulo {
-      text-align: center;
-      font-size: 1rem;
-      color: #666;
-      margin-bottom: 2rem;
-    }
-  
-    .formulario {
+    .form-row {
       display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-  
-      .form-row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-  
-        .form-label {
-          width: 200px;
-          font-weight: 600;
-          font-size: 1rem;
-          color: #333;
-          margin-bottom: 0.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+
+      .form-label {
+        width: 200px;
+        font-weight: 600;
+        font-size: 1rem;
+        color: #333;
+        margin-bottom: 0.5rem;
+      }
+
+      .form-input {
+        flex: 1;
+        min-width: 200px;
+
+        mat-form-field {
+          width: 100%;
         }
-  
-        .form-input {
-          flex: 1;
-          min-width: 200px;
-  
-          mat-form-field {
-            width: 100%;
+
+        &.archivo-input {
+          display: flex;
+          align-items: center;
+
+          .file-input {
+            display: none;
           }
-  
-          &.archivo-input {
+
+          button {
+            background-color: #1976d2;
+            color: white;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            font-size: 0.95rem;
             display: flex;
             align-items: center;
-  
-            .file-input {
-              display: none;
+            gap: 0.5rem;
+            border: none;
+            transition: background-color 0.3s;
+
+            mat-icon {
+              font-size: 20px;
             }
-  
-            button {
-              background-color: #1976d2;
-              color: white;
-              border-radius: 8px;
-              padding: 0.5rem 1rem;
-              font-weight: 500;
-              font-size: 0.95rem;
-              display: flex;
-              align-items: center;
-              gap: 0.5rem;
-              border: none;
-              transition: background-color 0.3s;
-  
-              mat-icon {
-                font-size: 20px;
-              }
-  
-              &:hover {
-                background-color: #125ea3;
-              }
+
+            &:hover {
+              background-color: #125ea3;
             }
           }
         }
       }
     }
-  
-    .acciones {
-      margin-top: 2rem;
-      text-align: right;
-  
-      button {
-        background-color: #1976d2;
-        color: white;
-        border-radius: 8px;
-        padding: 0.7rem 1.5rem;
+
+    .recordatorio-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: nowrap;
+    }
+
+    .recordatorio {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex: 1;
+      min-width: 0; 
+    }
+
+    .recordatorio mat-icon {
+      flex-shrink: 0;
+      font-size: 24px;
+      color: #7e7e7e;
+    }
+
+    .form-recordatorio {
+      margin: 0;
+      padding: 0;
+      line-height: 1.2;
+      display: inline;
+      align-items: center;
+
+      .recordatorio-bold {
         font-weight: 600;
-        font-size: 1rem;
-        text-transform: uppercase;
-        border: none;
-        transition: background-color 0.3s;
-  
-        mat-icon {
-          margin-right: 0.4rem;
-        }
-  
-        &:hover {
-          background-color: #125ea3;
-        }
-  
-        &:disabled {
-          background-color: #ccc;
-          cursor: not-allowed;
-        }
+        color: #000000;
+      }
+    }
+
+    .icon-descarga {
+      font-size: 24px;
+    }
+  }
+
+  .acciones {
+    margin-top: 0 !important;
+    text-align: right;
+
+    button {
+      background-color: #1976d2;
+      color: white;
+      border-radius: 8px;
+      padding: 0.7rem 1.5rem;
+      font-weight: 600;
+      font-size: 1rem;
+      text-transform: uppercase;
+      border: none;
+      transition: background-color 0.3s;
+
+      mat-icon {
+        margin-right: 0.4rem;
+      }
+
+      &:hover {
+        background-color: #125ea3;
+      }
+
+      &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
       }
     }
   }
-  
+}
+
 .aviso-card {
-    max-width: 90%;
-    margin: 1rem auto;
-    padding: 1rem 1.5rem;
-    border-radius: 16px;
-    background: #fdfdfd;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  max-width: 90%;
+  margin: 1rem auto;
+  padding: 1rem 1.5rem;
+  border-radius: 16px;
+  background: #fdfdfd;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 
-    .titulo {
-        text-align: center;
-        font-size: 1.6rem;
-        color: #000000;
-        margin-bottom: 0.5rem;
-    }
+  .titulo {
+    text-align: center;
+    font-size: 1.6rem;
+    color: #000000;
+    margin-bottom: 0.5rem;
+  }
 
-    .text {
-        text-align: left;
-        font-size: 0.8rem;
-        color: #000000;
-        margin-bottom: 0.5rem;
-    }
+  .text {
+    text-align: left;
+    font-size: 0.8rem;
+    color: #000000;
+    margin-bottom: 0.5rem;
+  }
 }

@@ -14,7 +14,9 @@
     "codigo_verificacion_placeholder": "Ex. ABC123XYZ",
     "documento_pdf": "PDF document: ",
     "documento_pdf_placeholder": "Select PDF file",
-    "boton": "VERIFY SIGNATURE"
+    "boton": "VERIFY SIGNATURE",
+    "recordatorio_negrilla": "Reminder: ",
+    "mensaje_recordatorio": "Remember that file validation is only possible if it was downloaded using the download icon, avoiding the print option."
   },
   "GLOBAL": {
     "cerrar": "Close",
