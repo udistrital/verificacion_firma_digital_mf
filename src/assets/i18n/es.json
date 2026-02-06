@@ -14,8 +14,9 @@
     "codigo_verificacion_placeholder": "Ej. ABC123XYZ",
     "documento_pdf": "Documento PDF: ",
     "documento_pdf_placeholder": "Seleccionar archivo PDF",
-    "boton": "VERIFICAR FIRMA"
-
+    "boton": "VERIFICAR FIRMA",
+    "recordatorio_negrilla": "Recordatorio: ",
+    "mensaje_recordatorio": "Recuerde que la validación del archivo solo es posible si se descargó usando el ícono de descarga, evitando la opción de imprimir."
   },
   "GLOBAL": {
     "cerrar": "Cerrar",
