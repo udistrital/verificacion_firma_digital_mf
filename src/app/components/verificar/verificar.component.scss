@@ -84,30 +84,34 @@
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
-      flex-wrap: nowrap; // 👈 evita que se vaya a otra fila
+      flex-wrap: nowrap;
     }
 
     .recordatorio {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      flex: 1; // ocupa el espacio disponible
+      flex: 1;
       min-width: 0; 
     }
 
     .recordatorio mat-icon {
-      flex-shrink: 0;        // 👈 NO se recorta nunca
+      flex-shrink: 0;
       font-size: 24px;
       color: #7e7e7e;
-      //color: #1976d2;
     }
 
     .form-recordatorio {
-      margin: 0; // elimina margen del <p>
-      padding: 0; // asegura alineación
-      line-height: 1.2; // reduce “salto” visual
-      display: flex;
-      align-items: center; // centra el texto respecto al icono
+      margin: 0;
+      padding: 0;
+      line-height: 1.2;
+      display: inline;
+      align-items: center;
+
+      .recordatorio-bold {
+        font-weight: 600;
+        color: #000000;
+      }
     }
 
     .icon-descarga {

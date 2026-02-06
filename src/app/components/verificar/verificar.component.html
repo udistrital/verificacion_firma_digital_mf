@@ -11,15 +11,14 @@
         <div class="form-row">
             <label class="form-label" for="codigoFirma">{{ 'BODY.codigo_verificacion' | translate }}</label>
             <mat-form-field appearance="fill" class="form-input">
-                <input id="codigoFirma" matInput [(ngModel)]="firmaId" name="firmaId" [placeholder]="'BODY.codigo_verificacion_placeholder' | translate"
-                    required />
+                <input id="codigoFirma" matInput [(ngModel)]="firmaId" name="firmaId" [placeholder]="'BODY.codigo_verificacion_placeholder' | translate" required />
             </mat-form-field>
         </div>
 
         <div class="form-row">
             <label class="form-label">{{ 'BODY.documento_pdf' | translate }}</label>
             <div class="form-input archivo-input">
-                <input id="inputDoc" type="file" accept="application/pdf,image/jpeg" class="file-input" 
+                <input id="inputDoc" type="file" accept="application/pdf,image/jpeg" class="file-input"
                     (change)="onFileSelected($event)" #fileUpload />
                 <button mat-stroked-button color="primary" type="button" (click)="fileUpload.click()">
                     <mat-icon>attach_file</mat-icon>
@@ -28,15 +27,16 @@
             </div>
         </div>
 
-        <re-captcha #captchaRef 
-            [siteKey]="captchaKey"
-            (resolved)="onCaptchaResolved($event)">
+        <re-captcha #captchaRef [siteKey]="captchaKey" (resolved)="onCaptchaResolved($event)">
         </re-captcha>
 
         <div class="form-row recordatorio-row">
-  <div class="recordatorio">
-            <p class="form-recordatorio">Recordatorio: Recuerde que la validación del archivo solo es posible si se descargó usando el ícono de descarga, evitando la opción de imprimir.</p>
-            <mat-icon>download_for_offline</mat-icon>
+            <div class="recordatorio">
+                <p class="form-recordatorio">
+                    <span class="recordatorio-bold">{{ 'BODY.recordatorio_negrilla' | translate }}</span>
+                    {{ 'BODY.mensaje_recordatorio' | translate }}
+                </p>
+                <mat-icon>download_for_offline</mat-icon>
             </div>
             <div class="acciones">
                 <button mat-raised-button color="primary" (click)="checkFirma()" [disabled]="!firmaId || !fileName || !captchaPassed">
@@ -46,8 +46,5 @@
             </div>
         </div>
 
-        
-
     </form>
 </mat-card>
-
