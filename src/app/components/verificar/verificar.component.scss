@@ -1,11 +1,11 @@
 .verificar-card {
-  max-width: 900px;
-  margin: 2rem auto;
-  padding: 2rem 2.5rem;
-  border-radius: 16px;
-  background: #fdfdfd;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-
+  width: min(90%, 1360px);
+  margin: 1.4rem auto;
+  padding: 1.65rem 1.8rem 1.8rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(207, 216, 228, 0.9);
+  box-shadow: 0 18px 38px rgba(35, 45, 68, 0.08);
   .titulo {
     text-align: center;
     font-size: 1.8rem;
@@ -15,15 +15,17 @@
 
   .subtitulo {
     text-align: center;
-    font-size: 1rem;
-    color: #666;
-    margin-bottom: 2rem;
+    font-size: 0.98rem;
+    color: #5a6675;
+    margin-bottom: 1.75rem;
+    line-height: 1.45;
   }
 
   .formulario {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.2rem;
+    max-width: 100%;
 
     .form-row {
       display: flex;
@@ -31,16 +33,16 @@
       align-items: center;
 
       .form-label {
-        width: 200px;
-        font-weight: 600;
-        font-size: 1rem;
-        color: #333;
+        width: 180px;
+        font-weight: 700;
+        font-size: 0.98rem;
+        color: #17283d;
         margin-bottom: 0.5rem;
       }
 
       .form-input {
         flex: 1;
-        min-width: 200px;
+        min-width: 360px;
 
         mat-form-field {
           width: 100%;
@@ -55,24 +57,28 @@
           }
 
           button {
-            background-color: #1976d2;
+            background-color: #2d6fbd;
             color: white;
-            border-radius: 8px;
-            padding: 0.5rem 1rem;
-            font-weight: 500;
-            font-size: 0.95rem;
+            border-radius: 10px;
+            padding: 0.65rem 1.1rem;
+            font-weight: 700;
+            font-size: 0.92rem;
+            letter-spacing: 0.02em;
             display: flex;
             align-items: center;
             gap: 0.5rem;
             border: none;
-            transition: background-color 0.3s;
+            box-shadow: 0 8px 20px rgba(45, 111, 189, 0.18);
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
 
             mat-icon {
               font-size: 20px;
             }
 
             &:hover {
-              background-color: #125ea3;
+              background-color: #245f9f;
+              transform: translateY(-1px);
+              box-shadow: 0 10px 24px rgba(36, 95, 159, 0.22);
             }
           }
         }
@@ -104,13 +110,14 @@
     .form-recordatorio {
       margin: 0;
       padding: 0;
-      line-height: 1.2;
+      line-height: 1.3;
+      color: #202d3c;
       display: inline;
       align-items: center;
 
       .recordatorio-bold {
-        font-weight: 600;
-        color: #000000;
+        font-weight: 800;
+        color: #0f1d2d;
       }
     }
 
@@ -122,53 +129,237 @@
   .acciones {
     margin-top: 0 !important;
     text-align: right;
+    min-width: 0;
 
     button {
-      background-color: #1976d2;
+      background: linear-gradient(180deg, #234d85 0%, #1e4476 100%);
       color: white;
-      border-radius: 8px;
-      padding: 0.7rem 1.5rem;
-      font-weight: 600;
-      font-size: 1rem;
+      border-radius: 10px;
+      padding: 0.78rem 1.55rem;
+      font-weight: 800;
+      font-size: 0.98rem;
+      letter-spacing: 0.01em;
       text-transform: uppercase;
       border: none;
-      transition: background-color 0.3s;
+      box-shadow: 0 10px 22px rgba(30, 68, 118, 0.18);
+      transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
 
       mat-icon {
         margin-right: 0.4rem;
       }
 
       &:hover {
-        background-color: #125ea3;
+        background: linear-gradient(180deg, #1f4678 0%, #18385f 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 12px 24px rgba(24, 56, 95, 0.22);
       }
 
       &:disabled {
-        background-color: #ccc;
+        background: #d2d6db;
+        color: #ffffff;
+        box-shadow: none;
         cursor: not-allowed;
       }
     }
   }
 }
 
+.qr-card {
+  .qr-state {
+    text-align: center;
+    color: #2c3e50;
+    margin: 1rem 0;
+  }
+
+  .qr-error {
+    color: #b3261e;
+  }
+
+  .qr-result {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .qr-meta {
+    background: linear-gradient(180deg, #f6f9fc 0%, #edf3f9 100%);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    color: #1f2933;
+    border: 1px solid rgba(213, 223, 235, 0.9);
+  }
+
+  .qr-viewer {
+    width: 100%;
+    min-height: 70vh;
+    border: 1px solid #d7dee7;
+    border-radius: 12px;
+    background: #fff;
+  }
+}
+
 .aviso-card {
   max-width: 90%;
   margin: 1rem auto;
-  padding: 1rem 1.5rem;
+  padding: 1rem 1.45rem 1.1rem;
   border-radius: 16px;
-  background: #fdfdfd;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-
+  background: linear-gradient(180deg, #fcfcfb 0%, #f8f7f5 100%);
+  border: 1px solid rgba(224, 223, 219, 0.9);
+  box-shadow: 0 10px 22px rgba(30, 38, 52, 0.05);
   .titulo {
     text-align: center;
-    font-size: 1.6rem;
-    color: #000000;
-    margin-bottom: 0.5rem;
+    font-family: 'Raleway', 'Open Sans', sans-serif;
+    font-weight: 700;
+    font-size: 1.45rem;
+    letter-spacing: 0.01em;
+    color: #1d2734;
+    margin-bottom: 0.45rem;
   }
 
   .text {
     text-align: left;
-    font-size: 0.8rem;
-    color: #000000;
+    font-size: 0.79rem;
+    line-height: 1.45;
+    color: #4f5964;
     margin-bottom: 0.5rem;
+  }
+}
+
+.guia-card {
+  max-width: 90%;
+  margin: 1.15rem auto 0.9rem;
+  padding: 1.1rem 1.25rem 1.2rem;
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(244, 248, 253, 0.98) 0%, rgba(236, 244, 252, 0.96) 100%);
+  border: 1px solid #d3e2f4;
+  box-shadow: 0 16px 34px rgba(34, 58, 93, 0.08);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 4px;
+    background: linear-gradient(90deg, #234d85 0%, #4f88cc 50%, #b8d1ef 100%);
+  }
+
+  .titulo {
+    text-align: left;
+    font-family: 'Raleway', 'Open Sans', sans-serif;
+    font-weight: 800;
+    font-size: 1.7rem;
+    letter-spacing: -0.02em;
+    color: #173b69;
+    margin: 0 0 0.9rem;
+    padding-left: 0.1rem;
+  }
+
+  .guia-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+
+  .guia-item {
+    min-height: 148px;
+    padding: 0.9rem 1.1rem 0.95rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 14px;
+    border-left: 4px solid #1976d2;
+    box-shadow:
+      inset 0 0 0 1px rgba(213, 225, 240, 0.9),
+      0 8px 18px rgba(43, 73, 112, 0.04);
+  }
+
+  .guia-item--archivo {
+    border-left-color: #234d85;
+  }
+
+  .guia-item h3 {
+    margin: 0 0 0.5rem;
+    font-family: 'Raleway', 'Open Sans', sans-serif;
+    font-weight: 700;
+    font-size: 1.02rem;
+    line-height: 1.2;
+    color: #16375f;
+  }
+
+  .guia-item p {
+    margin: 0;
+    color: #45586d;
+    line-height: 1.45;
+    font-size: 0.92rem;
+  }
+}
+
+::ng-deep .form-input .mat-mdc-text-field-wrapper {
+  background: linear-gradient(180deg, #fbfbfb 0%, #f3f4f6 100%) !important;
+  border: 1px solid #d8dde5;
+  border-radius: 12px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+::ng-deep .form-input .mdc-line-ripple {
+  display: none !important;
+}
+
+::ng-deep .form-input .mat-mdc-form-field-infix {
+  min-height: 56px;
+  padding-top: 14px !important;
+  padding-bottom: 12px !important;
+}
+
+::ng-deep .form-input input.mat-mdc-input-element {
+  color: #1a2738;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .verificar-card {
+    margin: 1rem;
+    width: auto;
+    padding: 1.35rem 1.1rem 1.45rem;
+
+    .formulario {
+      gap: 1rem;
+    }
+
+    .form-row {
+      align-items: flex-start;
+    }
+
+    .recordatorio-row {
+      flex-wrap: wrap !important;
+    }
+
+    .acciones {
+      width: 100%;
+      text-align: left;
+
+      button {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  }
+
+  .guia-card {
+    margin: 1rem;
+    padding: 1.05rem;
+
+    .titulo {
+      font-size: 1.34rem;
+    }
+
+    .guia-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .guia-item {
+      min-height: auto;
+      padding: 0.9rem 0.95rem;
+    }
   }
 }

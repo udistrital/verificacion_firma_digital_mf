@@ -3,7 +3,43 @@
     <p class="text">{{ 'BODY.parrafo_uno' | translate }}</p>
 </mat-card>
 
-<mat-card *ngIf="!doc" class="verificar-card">
+<mat-card *ngIf="!qrMode" class="guia-card">
+    <h2 class="titulo">{{ 'BODY.guia_titulo' | translate }}</h2>
+
+    <div class="guia-grid" role="list">
+        <div class="guia-item guia-item--qr" role="listitem">
+            <h3>{{ 'BODY.guia_qr_titulo' | translate }}</h3>
+            <p>{{ 'BODY.guia_qr_texto' | translate }}</p>
+        </div>
+
+        <div class="guia-item guia-item--archivo" role="listitem">
+            <h3>{{ 'BODY.guia_archivo_titulo' | translate }}</h3>
+            <p>{{ 'BODY.guia_archivo_texto' | translate }}</p>
+        </div>
+    </div>
+</mat-card>
+
+<mat-card *ngIf="qrMode" class="verificar-card qr-card">
+    <p class="subtitulo">{{ 'BODY.qr_subtitulo' | translate }}</p>
+
+    <div *ngIf="qrLoading" class="qr-state">
+        <p>{{ 'BODY.qr_cargando' | translate }}</p>
+    </div>
+
+    <div *ngIf="qrError" class="qr-state qr-error">
+        <p>{{ qrError }}</p>
+    </div>
+
+    <div *ngIf="doc && qrViewerUrl" class="qr-result">
+        <div class="qr-meta">
+            <p><strong>{{ 'BODY.codigo_verificacion' | translate }}</strong> {{ firmaId }}</p>
+        </div>
+
+        <iframe class="qr-viewer" [src]="qrViewerUrl" title="Documento QR"></iframe>
+    </div>
+</mat-card>
+
+<mat-card *ngIf="!qrMode" class="verificar-card">
     <p class="subtitulo">{{ 'BODY.subtitulo_uno' | translate }}</p>
 
     <form class="formulario" autocomplete="off">

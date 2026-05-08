@@ -32,4 +32,22 @@ export class VerificacionFirmaService {
         this.requestManager.setPath('VERIFICACION_FIRMA_SERVICE');
         return this.requestManager.post(endpoint, element);
     }
+
+    resolveQrToken(token: string) {
+        this.requestManager.setPath('FIRMA_ELECTRONICA_SERVICE');
+        return this.requestManager.get(`qr/resolve/${encodeURIComponent(token)}`);
+    }
+
+    async getSecureDocumentFile(documentUrl: string) {
+        const documentResponse = await fetch(documentUrl);
+        if (!documentResponse.ok) {
+            throw new Error(`file_${documentResponse.status}`);
+        }
+
+        return {
+            blob: await documentResponse.blob(),
+            filename: 'documento.pdf',
+            mimeType: documentResponse.headers.get('Content-Type') || 'application/pdf',
+        };
+    }
 }
