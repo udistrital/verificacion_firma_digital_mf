@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import Swal from 'sweetalert2';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { VerificacionFirmaService } from '../../services/VerificacionFirmaService';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject, firstValueFrom } from 'rxjs';
 import { PopUpManager } from '../../managers/popUpManager';
 
 import { CommonModule } from '@angular/common';
@@ -14,8 +14,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { environment } from '../../../environments/environment';
+import { ActivatedRoute } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 import { RecaptchaModule, RecaptchaComponent } from 'ng-recaptcha';
+import { getCookie } from '../header/header.component';
 
 @Component({
   selector: 'app-verificar',
@@ -24,7 +27,7 @@ import { RecaptchaModule, RecaptchaComponent } from 'ng-recaptcha';
   templateUrl: './verificar.component.html',
   styleUrl: './verificar.component.scss'
 })
-export class VerificarComponent implements OnInit {
+export class VerificarComponent implements OnInit, OnDestroy {
   @ViewChild('captchaRef') captchaRef!: RecaptchaComponent;
 
   doc: any;
@@ -36,6 +39,12 @@ export class VerificarComponent implements OnInit {
   fileSelected?: Blob;
   blob?: Blob;
   fileEqual: any;
+  qrToken = '';
+  qrViewerUrl?: SafeResourceUrl;
+  qrViewerBlobUrl = '';
+  qrMode = false;
+  qrLoading = false;
+  qrError = '';
 
   captchaKey = environment.CAPTCHA_SITE_KEY;
   captchaToken: string = '';
@@ -45,9 +54,30 @@ export class VerificarComponent implements OnInit {
     public translate: TranslateService,
     private verificacionFirmaService: VerificacionFirmaService,
     private popUpMan: PopUpManager,
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer,
   ) { }
 
   ngOnInit() {
+    const lang = getCookie('lang') || 'es';
+    this.translate.setDefaultLang(lang);
+    void this.translate.use(lang);
+
+    this.route.queryParamMap.subscribe((params) => {
+      const token = params.get('token')?.trim() || '';
+      if (!token) {
+        return;
+      }
+      this.qrToken = token;
+      this.qrMode = true;
+      void this.loadQrDocument(token);
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.qrViewerBlobUrl) {
+      URL.revokeObjectURL(this.qrViewerBlobUrl);
+    }
   }
 
   onFileSelected(event: any) {
@@ -141,7 +171,7 @@ export class VerificarComponent implements OnInit {
       next: async (res: any) => {
         Swal.close();
 
-        this.captchaRef.reset();
+        this.captchaRef?.reset();
         this.captchaToken = '';
         this.captchaPassed = false;
 
@@ -175,7 +205,7 @@ export class VerificarComponent implements OnInit {
 
       error: (err) => {
         Swal.close();
-        this.captchaRef.reset();
+        this.captchaRef?.reset();
         this.captchaToken = '';
         this.captchaPassed = false;
         let mensaje = this.translate.instant('POPUP.error_inesperado');
@@ -192,6 +222,58 @@ export class VerificarComponent implements OnInit {
       this.captchaToken = '';
       this.captchaPassed = false;
     }
+  }
+
+  private async loadQrDocument(token: string) {
+    this.qrLoading = true;
+    this.qrError = '';
+
+    const mensajeTraducido = await firstValueFrom(this.translate.get('POPUP.mensaje_espera_qr'));
+    const mensaje = mensajeTraducido === 'POPUP.mensaje_espera_qr'
+      ? 'Estamos validando la información. Esto puede tardar unos minutos, por favor espere.'
+      : mensajeTraducido;
+    Swal.fire({
+      title: 'Por favor espere',
+      text: mensaje,
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    this.verificacionFirmaService.resolveQrToken(token).subscribe({
+      next: async (res: any) => {
+        try {
+          if (res.Status !== '200' || !res.res?.secure_file_url) {
+            throw new Error('invalid_qr_payload');
+          }
+
+          const qrData = res.res;
+          this.firmaId = qrData.firma_id;
+          const fileData = await this.verificacionFirmaService.getSecureDocumentFile(qrData.secure_file_url);
+          if (this.qrViewerBlobUrl) {
+            URL.revokeObjectURL(this.qrViewerBlobUrl);
+          }
+
+          this.qrViewerBlobUrl = window.URL.createObjectURL(fileData.blob);
+          this.qrViewerUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.qrViewerBlobUrl);
+          this.doc = qrData;
+          Swal.close();
+        } catch (_error) {
+          Swal.close();
+          this.qrError = this.translate.instant('POPUP.error_documento_qr');
+          this.popUpMan.showErrorAlert(this.qrError);
+        } finally {
+          this.qrLoading = false;
+        }
+      },
+      error: () => {
+        Swal.close();
+        this.qrLoading = false;
+        this.qrError = this.translate.instant('POPUP.error_documento_qr');
+        this.popUpMan.showErrorAlert(this.qrError);
+      },
+    });
   }
 
 }
