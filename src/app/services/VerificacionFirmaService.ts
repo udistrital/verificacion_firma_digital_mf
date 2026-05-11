@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { RequestManager } from "../managers/requestManager";
+import { environment } from "../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
@@ -36,6 +37,14 @@ export class VerificacionFirmaService {
     resolveQrToken(token: string) {
         this.requestManager.setPath('FIRMA_ELECTRONICA_SERVICE');
         return this.requestManager.get(`qr/resolve/${encodeURIComponent(token)}`);
+    }
+
+    buildSecureDocumentFileUrl(token: string, filePath?: string) {
+        const baseUrl = environment.FIRMA_ELECTRONICA_SERVICE.replace(/\/+$/, '');
+        if (filePath) {
+            return `${baseUrl}/${filePath.replace(/^\/+/, '')}`;
+        }
+        return `${baseUrl}/qr/file/${encodeURIComponent(token)}`;
     }
 
     async getSecureDocumentFile(documentUrl: string) {

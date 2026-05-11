@@ -244,13 +244,14 @@ export class VerificarComponent implements OnInit, OnDestroy {
     this.verificacionFirmaService.resolveQrToken(token).subscribe({
       next: async (res: any) => {
         try {
-          if (res.Status !== '200' || !res.res?.secure_file_url) {
+          if (res.Status !== '200' || !res.res?.token) {
             throw new Error('invalid_qr_payload');
           }
 
           const qrData = res.res;
           this.firmaId = qrData.firma_id;
-          const fileData = await this.verificacionFirmaService.getSecureDocumentFile(qrData.secure_file_url);
+          const fileUrl = this.verificacionFirmaService.buildSecureDocumentFileUrl(qrData.token, qrData.file_path);
+          const fileData = await this.verificacionFirmaService.getSecureDocumentFile(fileUrl);
           if (this.qrViewerBlobUrl) {
             URL.revokeObjectURL(this.qrViewerBlobUrl);
           }
