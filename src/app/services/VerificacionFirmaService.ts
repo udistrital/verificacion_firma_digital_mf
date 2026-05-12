@@ -35,23 +35,32 @@ export class VerificacionFirmaService {
     }
 
     resolveQrToken(token: string) {
-        console.log("[trace-ui] service.resolveQrToken.start");
         this.requestManager.setPath('FIRMA_ELECTRONICA_SERVICE');
-        return this.requestManager.get(`qr/resolve/${encodeURIComponent(token)}`);
+        return this.requestManager.post('qr/resolve', { token });
     }
 
-    buildSecureDocumentFileUrl(token: string, filePath?: string) {
+    buildSecureDocumentFileUrl(filePath?: string) {
         const baseUrl = environment.FIRMA_ELECTRONICA_SERVICE.replace(/\/+$/, '');
         if (filePath) {
             return `${baseUrl}/${filePath.replace(/^\/+/, '')}`;
         }
-        return `${baseUrl}/qr/file/${encodeURIComponent(token)}`;
+        return `${baseUrl}/qr/file`;
     }
 
-    async getSecureDocumentFile(documentUrl: string) {
-        console.log("[trace-ui] service.getSecureDocumentFile.start");
-        const documentResponse = await fetch(documentUrl);
-        console.log("[trace-ui] service.getSecureDocumentFile.response", { status: documentResponse.status });
+    async getSecureDocumentFile(token: string, documentUrl: string) {
+        const accessToken = window.localStorage.getItem('access_token');
+        const headers: Record<string, string> = {
+            'Content-Type': 'application/json',
+        };
+        if (accessToken) {
+            headers['Authorization'] = `Bearer ${accessToken}`;
+        }
+
+        const documentResponse = await fetch(documentUrl, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({ token }),
+        });
         if (!documentResponse.ok) {
             throw new Error(`file_${documentResponse.status}`);
         }
