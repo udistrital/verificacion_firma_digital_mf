@@ -51,6 +51,7 @@ export class VerificacionFirmaService {
         const accessToken = window.localStorage.getItem('access_token');
         const headers: Record<string, string> = {
             'Content-Type': 'application/json',
+            'Accept': 'application/json',
         };
         if (accessToken) {
             headers['Authorization'] = `Bearer ${accessToken}`;
@@ -65,10 +66,23 @@ export class VerificacionFirmaService {
             throw new Error(`file_${documentResponse.status}`);
         }
 
+        const payload = await documentResponse.json();
+        const documentData = payload?.res;
+        if (payload?.Status !== '200' || !documentData?.file) {
+            throw new Error('invalid_file_payload');
+        }
+
+        const binary = atob(documentData.file.replace(/\s/g, ''));
+        const buffer = new ArrayBuffer(binary.length);
+        const view = new Uint8Array(buffer);
+        for (let i = 0; i < binary.length; i++) {
+            view[i] = binary.charCodeAt(i);
+        }
+
         return {
-            blob: await documentResponse.blob(),
-            filename: 'documento.pdf',
-            mimeType: documentResponse.headers.get('Content-Type') || 'application/pdf',
+            blob: new Blob([view], { type: documentData.mime_type || 'application/pdf' }),
+            filename: documentData.filename || 'documento.pdf',
+            mimeType: documentData.mime_type || 'application/pdf',
         };
     }
 }
