@@ -42,9 +42,11 @@ export class VerificarComponent implements OnInit, OnDestroy {
   qrToken = '';
   qrViewerUrl?: SafeResourceUrl;
   qrViewerBlobUrl = '';
+  qrViewerFilename = 'documento.pdf';
   qrMode = false;
   qrLoading = false;
   qrError = '';
+  prefersExternalPdfViewer = false;
 
   captchaKey = environment.CAPTCHA_SITE_KEY;
   captchaToken: string = '';
@@ -59,6 +61,7 @@ export class VerificarComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.prefersExternalPdfViewer = this.shouldUseExternalPdfViewer();
     const lang = getCookie('lang') || 'es';
     this.translate.setDefaultLang(lang);
     void this.translate.use(lang);
@@ -78,6 +81,22 @@ export class VerificarComponent implements OnInit, OnDestroy {
     if (this.qrViewerBlobUrl) {
       URL.revokeObjectURL(this.qrViewerBlobUrl);
     }
+  }
+
+  private shouldUseExternalPdfViewer(): boolean {
+    if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+      return false;
+    }
+
+    const mobileUserAgent = /Android|iPhone|iPad|iPod|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    return mobileUserAgent || window.matchMedia('(max-width: 900px)').matches;
+  }
+
+  openQrPdf(): void {
+    if (!this.qrViewerBlobUrl) {
+      return;
+    }
+    window.open(this.qrViewerBlobUrl, '_blank', 'noopener,noreferrer');
   }
 
   onFileSelected(event: any) {
@@ -257,6 +276,7 @@ export class VerificarComponent implements OnInit, OnDestroy {
           }
 
           this.qrViewerBlobUrl = window.URL.createObjectURL(fileData.blob);
+          this.qrViewerFilename = fileData.filename || 'documento.pdf';
           this.qrViewerUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.qrViewerBlobUrl);
           this.doc = qrData;
           Swal.close();

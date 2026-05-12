@@ -35,7 +35,16 @@
             <p><strong>{{ 'BODY.codigo_verificacion' | translate }}</strong> {{ firmaId }}</p>
         </div>
 
-        <iframe class="qr-viewer" [src]="qrViewerUrl" title="Documento QR"></iframe>
+        <div *ngIf="prefersExternalPdfViewer" class="qr-mobile-viewer">
+            <mat-icon>picture_as_pdf</mat-icon>
+            <p>{{ qrViewerFilename }}</p>
+            <button mat-raised-button color="primary" type="button" (click)="openQrPdf()">
+                <mat-icon>open_in_new</mat-icon>
+                {{ 'BODY.qr_abrir_pdf' | translate }}
+            </button>
+        </div>
+
+        <iframe *ngIf="!prefersExternalPdfViewer" class="qr-viewer" [src]="qrViewerUrl" title="Documento QR"></iframe>
     </div>
 </mat-card>
 
