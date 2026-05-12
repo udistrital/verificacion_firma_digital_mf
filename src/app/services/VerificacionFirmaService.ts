@@ -35,6 +35,7 @@ export class VerificacionFirmaService {
     }
 
     resolveQrToken(token: string) {
+        console.log("[trace-ui] service.resolveQrToken.start");
         this.requestManager.setPath('FIRMA_ELECTRONICA_SERVICE');
         return this.requestManager.get(`qr/resolve/${encodeURIComponent(token)}`);
     }
@@ -48,7 +49,9 @@ export class VerificacionFirmaService {
     }
 
     async getSecureDocumentFile(documentUrl: string) {
+        console.log("[trace-ui] service.getSecureDocumentFile.start");
         const documentResponse = await fetch(documentUrl);
+        console.log("[trace-ui] service.getSecureDocumentFile.response", { status: documentResponse.status });
         if (!documentResponse.ok) {
             throw new Error(`file_${documentResponse.status}`);
         }

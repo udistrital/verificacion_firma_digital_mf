@@ -135,13 +135,16 @@ export class VerificarComponent implements OnInit, OnDestroy {
 
 
   public checkFirma() {
+    console.log("[trace-ui] checkFirma.start");
     if (!this.captchaToken) {
+      console.log("[trace-ui] checkFirma.validation.fail.captcha");
       let mensaje = this.translate.instant('POPUP.falta_captcha');
       this.popUpMan.showErrorAlert(mensaje);
       return;
     }
 
     if (!this.firmaId || this.firmaId.length !== 36) {
+      console.log("[trace-ui] checkFirma.validation.fail.firmaId");
       let mensaje = this.translate.instant('POPUP.falta_codigo_verificacion');
       this.popUpMan.showErrorAlert(mensaje);
       return;
@@ -159,6 +162,7 @@ export class VerificarComponent implements OnInit, OnDestroy {
       },
     });
 
+    console.log("[trace-ui] checkFirma.request.prepare");
     const payload = [
       {
         pdf_base64: this.base64Output,
@@ -167,8 +171,10 @@ export class VerificarComponent implements OnInit, OnDestroy {
       },
     ];
 
+    console.log("[trace-ui] checkFirma.request.send");
     this.verificacionFirmaService.post('verificar_firma', payload).subscribe({
       next: async (res: any) => {
+        console.log("[trace-ui] checkFirma.response.next", { success: !!res?.Success, status: res?.Status, hasData: !!res?.Data });
         Swal.close();
 
         this.captchaRef?.reset();
@@ -176,6 +182,7 @@ export class VerificarComponent implements OnInit, OnDestroy {
         this.captchaPassed = false;
 
         if (!res.Success) {
+          console.log("[trace-ui] checkFirma.response.appFail");
           let mensaje = this.translate.instant('POPUP.error_verificacion');
           this.popUpMan.showErrorAlert(mensaje);
           return;
@@ -188,22 +195,26 @@ export class VerificarComponent implements OnInit, OnDestroy {
 
         let tituloAtencion = this.translate.instant('POPUP.titulo_atencion');
         if (archivoInfectado) {
+          console.log("[trace-ui] checkFirma.result.infected");
           let mensaje = this.translate.instant('POPUP.puede_contener_virus');
           this.popUpMan.showAlert(tituloAtencion, mensaje);
           return;
         }
 
         if (!fileEqual) {
+          console.log("[trace-ui] checkFirma.result.fileMismatch");
           let mensaje = this.translate.instant('POPUP.archivo_no_coincide');
           this.popUpMan.showAlert(tituloAtencion, mensaje);
           return;
         }
 
+        console.log("[trace-ui] checkFirma.result.success");
         let mensaje = this.translate.instant('POPUP.verificacion_exitosa');
         this.popUpMan.showSuccessAlert(mensaje);
       },
 
       error: (err) => {
+        console.log("[trace-ui] checkFirma.response.error", { status: err?.status, message: err?.message });
         Swal.close();
         this.captchaRef?.reset();
         this.captchaToken = '';
@@ -225,6 +236,7 @@ export class VerificarComponent implements OnInit, OnDestroy {
   }
 
   private async loadQrDocument(token: string) {
+    console.log("[trace-ui] qr.load.start");
     this.qrLoading = true;
     this.qrError = '';
 
@@ -241,17 +253,22 @@ export class VerificarComponent implements OnInit, OnDestroy {
       },
     });
 
+    console.log("[trace-ui] qr.resolve.request.send");
     this.verificacionFirmaService.resolveQrToken(token).subscribe({
       next: async (res: any) => {
+        console.log("[trace-ui] qr.resolve.response.next", { status: res?.Status, hasRes: !!res?.res });
         try {
           if (res.Status !== '200' || !res.res?.token) {
+            console.log("[trace-ui] qr.resolve.response.invalidPayload");
             throw new Error('invalid_qr_payload');
           }
 
           const qrData = res.res;
           this.firmaId = qrData.firma_id;
           const fileUrl = this.verificacionFirmaService.buildSecureDocumentFileUrl(qrData.token, qrData.file_path);
+          console.log("[trace-ui] qr.file.request.send");
           const fileData = await this.verificacionFirmaService.getSecureDocumentFile(fileUrl);
+          console.log("[trace-ui] qr.file.response.ok");
           if (this.qrViewerBlobUrl) {
             URL.revokeObjectURL(this.qrViewerBlobUrl);
           }
@@ -265,6 +282,7 @@ export class VerificarComponent implements OnInit, OnDestroy {
           this.qrError = this.translate.instant('POPUP.error_documento_qr');
           this.popUpMan.showErrorAlert(this.qrError);
         } finally {
+          console.log("[trace-ui] qr.load.end");
           this.qrLoading = false;
         }
       },
