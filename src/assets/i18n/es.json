@@ -22,6 +22,7 @@
     "qr_subtitulo": "Documento recuperado desde el código QR seguro.",
     "qr_cargando": "Cargando documento asociado al QR...",
     "qr_abrir_pdf": "Abrir PDF",
+    "qr_descargar_pdf": "Descargar PDF",
     "qr_documento_id": "Id documento: ",
     "qr_documento_nombre": "Nombre documento: ",
     "boton": "VERIFICAR FIRMA",

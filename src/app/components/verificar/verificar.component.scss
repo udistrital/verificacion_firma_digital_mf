@@ -225,7 +225,16 @@
       word-break: break-word;
     }
 
+    .qr-mobile-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      width: 100%;
+      max-width: 280px;
+    }
+
     button {
+      width: 100%;
       min-width: 220px;
     }
   }
