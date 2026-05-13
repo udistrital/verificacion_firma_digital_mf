@@ -43,6 +43,7 @@ export class VerificarComponent implements OnInit, OnDestroy {
   qrViewerUrl?: SafeResourceUrl;
   qrViewerBlobUrl = '';
   qrViewerFilename = 'documento.pdf';
+  qrViewerBlob?: Blob;
   qrMode = false;
   qrLoading = false;
   qrError = '';
@@ -96,7 +97,23 @@ export class VerificarComponent implements OnInit, OnDestroy {
     if (!this.qrViewerBlobUrl) {
       return;
     }
-    window.open(this.qrViewerBlobUrl, '_blank', 'noopener,noreferrer');
+    const anchor = document.createElement('a');
+    anchor.href = this.qrViewerBlobUrl;
+    anchor.target = '_blank';
+    anchor.rel = 'noopener noreferrer';
+    anchor.click();
+  }
+
+  downloadQrPdf(): void {
+    if (!this.qrViewerBlobUrl) {
+      return;
+    }
+
+    const anchor = document.createElement('a');
+    anchor.href = this.qrViewerBlobUrl;
+    anchor.download = this.qrViewerFilename || 'documento.pdf';
+    anchor.rel = 'noopener noreferrer';
+    anchor.click();
   }
 
   onFileSelected(event: any) {
@@ -277,6 +294,7 @@ export class VerificarComponent implements OnInit, OnDestroy {
 
           this.qrViewerBlobUrl = window.URL.createObjectURL(fileData.blob);
           this.qrViewerFilename = fileData.filename || 'documento.pdf';
+          this.qrViewerBlob = fileData.blob;
           this.qrViewerUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.qrViewerBlobUrl);
           this.doc = qrData;
           Swal.close();

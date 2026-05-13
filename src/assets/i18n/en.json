@@ -22,6 +22,7 @@
     "qr_subtitulo": "Document recovered from the secure QR code.",
     "qr_cargando": "Loading document associated with the QR...",
     "qr_abrir_pdf": "Open PDF",
+    "qr_descargar_pdf": "Download PDF",
     "qr_documento_id": "Document id: ",
     "qr_documento_nombre": "Document name: ",
     "boton": "VERIFY SIGNATURE",
