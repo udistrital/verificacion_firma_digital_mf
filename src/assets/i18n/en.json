@@ -9,11 +9,22 @@
   "BODY": {
     "titulo_uno": "LEGAL NOTICE",
     "parrafo_uno": "In compliance with Colombian legislation, this interface allows you to verify the authenticity and validity of electronically signed documents, in accordance with the following laws, resolutions, and decrees: Law 527 of 1999: Which defines and regulates access to and use of data messages, electronic commerce, and digital signatures, and establishes certification entities and other provisions. Decree 1747 of 2000: Which partially regulates Law 527 of 1999 in relation to the advanced electronic signature and establishes other provisions. Resolution 2634 of 2013: Which establishes the technical requirements for the implementation of the advanced electronic signature and issues other provisions. The electronic signature is a secure and legally recognized mechanism to guarantee the integrity and identity of the signer. It is important to note that electronic verification is a complementary tool and does not replace a legal review or professional advice. By using this interface, you agree that the responsibility for the use and interpretation of the verification results rests solely with you. The provider of this interface does not assume any responsibility for any consequence derived from its use. Thank you for using our electronic signature verification platform. If you have any questions or need assistance, please do not hesitate to contact our support team.",
+    "guia_titulo": "Document validation guide",
+    "guia_qr_titulo": "Manual validation with QR code",
+    "guia_qr_texto": "The original document can be validated by scanning the QR code included in the document. When scanned, the original file will be displayed so a manual visual inspection can be performed.",
+    "guia_archivo_titulo": "Automatic validation by uploading the file",
+    "guia_archivo_texto": "If you upload the document, the system will perform an automatic inspection. For a correct match, the file must have been downloaded and not saved using the print option. It must also not contain external signatures or modifications. If the system detects changes, it will mark the file as altered; in that case, QR validation helps review the original document.",
     "subtitulo_uno": "🔏 Please enter the verification code and upload the PDF document you want to verify.",
     "codigo_verificacion": "Verification code: ",
     "codigo_verificacion_placeholder": "Ex. ABC123XYZ",
     "documento_pdf": "PDF document: ",
     "documento_pdf_placeholder": "Select PDF file",
+    "qr_subtitulo": "Document recovered from the secure QR code.",
+    "qr_cargando": "Loading document associated with the QR...",
+    "qr_abrir_pdf": "Open PDF",
+    "qr_descargar_pdf": "Download PDF",
+    "qr_documento_id": "Document id: ",
+    "qr_documento_nombre": "Document name: ",
     "boton": "VERIFY SIGNATURE",
     "recordatorio_negrilla": "Reminder: ",
     "mensaje_recordatorio": "Remember that file validation is only possible if it was downloaded using the download icon, avoiding the print option."
@@ -38,7 +49,9 @@
     "puede_contener_virus": "The file may contain a virus. The signature cannot be validated.",
     "archivo_no_coincide": "The attached file does not match or has been modified from the original.",
     "verificacion_exitosa": "The digital signature was successfully validated, and the file has not been modified.",
-    "error_inesperado": "An unexpected error occurred during verification due to the file or verification code, please check them."
+    "error_inesperado": "An unexpected error occurred during verification due to the file or verification code, please check them.",
+    "mensaje_espera_qr": "Please wait while the document from the QR code is loaded.",
+    "error_documento_qr": "The document associated with the QR code could not be resolved or displayed."
   }
 
 }

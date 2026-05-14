@@ -9,11 +9,22 @@
   "BODY": {
     "titulo_uno": "AVISO LEGAL",
     "parrafo_uno": "En cumplimiento de la legislación colombiana, esta interfaz le permite verificar la autenticidad y validez de documentos firmados electrónicamente, de acuerdo con las siguientes leyes, resoluciones y decretos: Ley 527 de 1999: Por la cual se define y reglamenta el acceso y uso de los mensajes de datos, del comercio electrónico y de las firmas digitales, y se establecen las entidades de certificación y se dictan otras disposiciones. Decreto 1747 de 2000: Por el cual se reglamenta parcialmente la Ley 527 de 1999 en relación con la firma electrónica avanzada y se dictan otras disposiciones. Resolución 2634 de 2013: Por la cual se establecen los requisitos técnicos para la implementación de la firma electrónica avanzada y se dictan otras disposiciones. La firma electrónica es un mecanismo seguro y legalmente reconocido para garantizar la integridad y la identidad del firmante. Es importante tener en cuenta que la verificación electrónica es una herramienta complementaria y no reemplaza una revisión legal o el asesoramiento de un profesional. Al utilizar esta interfaz, usted acepta que la responsabilidad por el uso y la interpretación de los resultados de verificación recae exclusivamente en usted. El proveedor de esta interfaz no asume responsabilidad alguna por cualquier consecuencia derivada del uso de esta. Gracias por utilizar nuestra plataforma de verificación de documentos con firma electrónica. Si tiene alguna pregunta o necesita asistencia, no dude en ponerse en contacto con nuestro equipo de soporte.",
+    "guia_titulo": "Guía de validación del documento",
+    "guia_qr_titulo": "Validación manual con código QR",
+    "guia_qr_texto": "El documento original puede validarse escaneando el código QR contenido en el documento. Al escanearlo se mostrará el documento original para realizar una inspección manual y comparar visualmente su contenido.",
+    "guia_archivo_titulo": "Validación automática cargando el archivo",
+    "guia_archivo_texto": "Si carga el documento, el sistema realizará una inspección automática. Para que coincida correctamente, el archivo debe haberse descargado y no guardado usando la opción de imprimir. Además, no debe tener firmas externas ni modificaciones. Si el sistema detecta cambios, lo marcará como alterado; en ese caso, la validación por QR sirve como apoyo para revisar el documento original.",
     "subtitulo_uno": "🔏 Por favor, ingrese el código de verificación y cargue el documento PDF que desea verificar.",
     "codigo_verificacion": "Código de verificación: ",
     "codigo_verificacion_placeholder": "Ej. ABC123XYZ",
     "documento_pdf": "Documento PDF: ",
     "documento_pdf_placeholder": "Seleccionar archivo PDF",
+    "qr_subtitulo": "Documento recuperado desde el código QR seguro.",
+    "qr_cargando": "Cargando documento asociado al QR...",
+    "qr_abrir_pdf": "Abrir PDF",
+    "qr_descargar_pdf": "Descargar PDF",
+    "qr_documento_id": "Id documento: ",
+    "qr_documento_nombre": "Nombre documento: ",
     "boton": "VERIFICAR FIRMA",
     "recordatorio_negrilla": "Recordatorio: ",
     "mensaje_recordatorio": "Recuerde que la validación del archivo solo es posible si se descargó usando el ícono de descarga, evitando la opción de imprimir."
@@ -38,6 +49,8 @@
     "puede_contener_virus": "Se detecto que el archivo puede contener virus. No se puede validar la firma.",
     "archivo_no_coincide": "El archivo adjunto no coincide o fue modificado al original.",
     "verificacion_exitosa": "Se verificó correctamente que es valida la firma digital y el archivo no tiene modificaciones.",
-    "error_inesperado": "Se genero un error en la verificación, debido al archivo o código de verificación, por favor revísalos."
+    "error_inesperado": "Se genero un error en la verificación, debido al archivo o código de verificación, por favor revísalos.",
+    "mensaje_espera_qr": "Estamos validando la información. Esto puede demorar unos minutos, por favor espere.",
+    "error_documento_qr": "No fue posible resolver o visualizar el documento asociado al código QR."
   }
 }
