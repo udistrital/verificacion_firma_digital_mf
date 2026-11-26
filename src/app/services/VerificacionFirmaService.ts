@@ -8,12 +8,14 @@ import { environment } from "../../environments/environment";
 export class VerificacionFirmaService {
 
     constructor(private readonly requestManager: RequestManager) {
-        this.requestManager.setPath('VERIFICACION_FIRMA_SERVICE');
+        this.requestManager.setPath('FIRMA_ELECTRONICA_SERVICE');
     }
 
     getOne(firmaId: string, base64Output: string, pdfURL: string) {
-        this.requestManager.setPath('VERIFICACION_FIRMA_SERVICE');
-        return this.requestManager.get(`get_one/${firmaId}`);
+        this.requestManager.setPath('FIRMA_ELECTRONICA_SERVICE');
+        return this.requestManager.post('verificar_firma', [{
+            firma: firmaId, pdf_base64: base64Output, urlFileUp: pdfURL,
+        }]);
     }
 
     getUrlFile(base64: any, minetype: any) {
@@ -30,7 +32,7 @@ export class VerificacionFirmaService {
     }
 
     post(endpoint: string, element: any) {
-        this.requestManager.setPath('VERIFICACION_FIRMA_SERVICE');
+        this.requestManager.setPath('FIRMA_ELECTRONICA_SERVICE');
         return this.requestManager.post(endpoint, element);
     }
 
