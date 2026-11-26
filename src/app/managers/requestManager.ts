@@ -40,9 +40,9 @@ export class RequestManager {
   private getHttpOptions() {
     const acces_token = window.localStorage.getItem('access_token');
     return {
-      headers: new HttpHeaders({
+      headers: new HttpHeaders(acces_token ? {
         'Authorization': `Bearer ${acces_token}`,
-      }),
+      } : {}),
     };
   }
   
